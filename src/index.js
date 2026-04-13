@@ -2,6 +2,8 @@ const { env, port } = require('./core/config');
 const logger = require('./core/logger')('app');
 const server = require('./core/server');
 
+const seedHadiah = require('./seed');
+
 const app = server.listen(port, (err) => {
   if (err) {
     logger.fatal(err, 'Failed to start the server.');
@@ -10,6 +12,8 @@ const app = server.listen(port, (err) => {
     logger.info(`Server runs at port ${port} in ${env} environment`);
   }
 });
+
+seedHadiah();
 
 process.on('uncaughtException', (err) => {
   logger.fatal(err, 'Uncaught exception.');
