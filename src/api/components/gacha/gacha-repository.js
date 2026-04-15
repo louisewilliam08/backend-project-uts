@@ -1,6 +1,6 @@
 const { GachaLog, Users } = require('../../../models');
 
-const PRIZES = [
+const PRIZESSS = [
   { id: 1, name: 'Emas 10 gram', quota: 1 },
   { id: 2, name: 'Smartphone X', quota: 5 },
   { id: 3, name: 'Smartwatch Y', quota: 10 },
@@ -47,31 +47,31 @@ async function performGacha(userId) {
 
   const winnerCounts = await getPrizeWinnerCounts();
 
-  const availablePrizes = PRIZES.filter(
+  const availablePRIZESSS = PRIZESSS.filter(
     (prize) => (winnerCounts[prize.id] || 0) < prize.quota
   );
 
 
-  const totalRemainingSlots = availablePrizes.reduce(
+  const totalRemainingSlots = availablePRIZESSS.reduce(
     (sum, p) => sum + (p.quota - (winnerCounts[p.id] || 0)),
     0
   );
-  const totalInitialSlots = PRIZES.reduce((sum, p) => sum + p.quota, 0);
+  const totalInitialSlots = PRIZESSS.reduce((sum, p) => sum + p.quota, 0);
 
   const winProbability = totalRemainingSlots / (totalInitialSlots * 2);
-  const isWinner = Math.random() < winProbability && availablePrizes.length > 0;
+  const isWinner = Math.random() < winProbability && availablePRIZESSS.length > 0;
 
   let prize = null;
   let prizeId = null;
 
   if (isWinner) {
-    const totalWeight = availablePrizes.reduce(
+    const totalWeight = availablePRIZESSS.reduce(
       (sum, p) => sum + (p.quota - (winnerCounts[p.id] || 0)),
       0
     );
     let random = Math.random() * totalWeight;
 
-    for (const p of availablePrizes) {
+    for (const p of availablePRIZESSS) {
       const remainingQuota = p.quota - (winnerCounts[p.id] || 0);
       random -= remainingQuota;
       if (random <= 0) {
@@ -107,10 +107,10 @@ async function getUserHistory(userId) {
 }
 
 // Fungsi untuk menampilkan daftar hadiah yang tersedia beserta kuota tersisa
-async function getPrizesWithRemainingQuota() {
+async function getPRIZESSSWithRemainingQuota() {
   const winnerCounts = await getPrizeWinnerCounts();
 
-  return PRIZES.map((prize) => ({
+  return PRIZESSS.map((prize) => ({
     id: prize.id,
     name: prize.name,
     total_quota: prize.quota,
@@ -126,7 +126,7 @@ async function getPrizeWinners() {
     .lean();
 
   const prizeWinners = {};
-  PRIZES.forEach((prize) => {
+  PRIZESSS.forEach((prize) => {
     prizeWinners[prize.id] = {
       prize_id: prize.id,
       prize_name: prize.name,
@@ -172,8 +172,8 @@ function maskName(name) {
 module.exports = {
   performGacha,
   getUserHistory,
-  getPrizesWithRemainingQuota,
+  getPRIZESSSWithRemainingQuota,
   getPrizeWinners,
   MAX_GACHA_PER_DAY,
-  PRIZES,
+  PRIZESSS,
 };
