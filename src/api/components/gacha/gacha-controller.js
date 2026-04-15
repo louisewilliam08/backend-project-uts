@@ -2,6 +2,7 @@ const gachaService = require('./gacha-service');
 const { errorResponder, errorTypes } = require('../../../core/errors');
 const { MAX_GACHA_PER_DAY } = require('./gacha-repository');
 
+// Fungsi untuk memproses gacha req dari user
 async function doGacha(request, response, next) {
   try {
     const { user_id: userId } = request.body;
@@ -51,6 +52,7 @@ async function doGacha(request, response, next) {
   }
 }
 
+// Fungsi untuk mendapatkan histori gacha user tertentu
 async function getHistory(request, response, next) {
   try {
     const { user_id: userId } = request.params;
@@ -79,6 +81,7 @@ async function getHistory(request, response, next) {
   }
 }
 
+// Fungsi untuk menampilkan daftar hadiah yang tersedia beserta kuota tersisa
 async function getPrizes(request, response, next) {
   try {
     const prizes = await gachaService.getPrizes();
@@ -92,6 +95,8 @@ async function getPrizes(request, response, next) {
   }
 }
 
+
+// Fungsi untuk menampilkan daftar pemenang per hadiah 
 async function getWinners(request, response, next) {
   try {
     const winners = await gachaService.getWinners();

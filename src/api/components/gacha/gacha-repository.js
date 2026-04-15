@@ -10,6 +10,7 @@ const PRIZES = [
 
 const MAX_GACHA_PER_DAY = 5;
 
+// Fungsi untuk menghitung berapa kali user sudah melakukan gacha hari ini
 async function getTodayGachaCount(userId) {
   const startOfDay = new Date();
   startOfDay.setHours(0, 0, 0, 0);
@@ -23,6 +24,7 @@ async function getTodayGachaCount(userId) {
   });
 }
 
+// Fungsi untuk menghitung berapa kali setiap hadiah sudah dimenangkan
 async function getPrizeWinnerCounts() {
   const counts = await GachaLog.aggregate([
     { $match: { prize_id: { $ne: null } } },
@@ -36,6 +38,7 @@ async function getPrizeWinnerCounts() {
   return countMap;
 }
 
+// Fungsi main untuk melakukan gacha
 async function performGacha(userId) {
   const todayCount = await getTodayGachaCount(userId);
   if (todayCount >= MAX_GACHA_PER_DAY) {
@@ -98,10 +101,12 @@ async function performGacha(userId) {
   };
 }
 
+// Fungsi untuk mendapatkan histori gacha user tertentu
 async function getUserHistory(userId) {
   return GachaLog.find({ user_id: userId }).sort({ timestamp: -1 }).lean();
 }
 
+// Fungsi untuk menampilkan daftar hadiah yang tersedia beserta kuota tersisa
 async function getPrizesWithRemainingQuota() {
   const winnerCounts = await getPrizeWinnerCounts();
 
@@ -114,7 +119,7 @@ async function getPrizesWithRemainingQuota() {
   }));
 }
 
-
+// Fungsi untuk menampilkan daftar pemenang per hadiah
 async function getPrizeWinners() {
   const winners = await GachaLog.find({ prize_id: { $ne: null } })
     .sort({ timestamp: 1 })
@@ -145,7 +150,7 @@ async function getPrizeWinners() {
   return Object.values(prizeWinners);
 }
 
-// Function untuk menyamarkan nama (misal: "John Doe" -> "J*** D**")
+// Function untuk menyamarkan nama 
 function maskName(name) {
   if (!name) return '';
 
