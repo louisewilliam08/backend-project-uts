@@ -107,7 +107,7 @@ async function getUserHistory(userId) {
 }
 
 // Fungsi untuk menampilkan daftar hadiah yang tersedia beserta kuota tersisa
-async function getPRIZESSSWithRemainingQuota() {
+async function getPrizesWithRemainingQuota() {
   const winnerCounts = await getPrizeWinnerCounts();
 
   return PRIZESSS.map((prize) => ({
@@ -172,7 +172,7 @@ function maskName(name) {
 module.exports = {
   performGacha,
   getUserHistory,
-  getPRIZESSSWithRemainingQuota,
+  getPrizesWithRemainingQuota,
   getPrizeWinners,
   MAX_GACHA_PER_DAY,
   PRIZESSS,
