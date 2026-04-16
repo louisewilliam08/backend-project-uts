@@ -71,7 +71,7 @@ Endpoint utama untuk melakukan undian (maks 5x/hari per user).
 
 Menampilkan riwayat gacha user beserta hadiah yang dimenangkan.
 
-**Contoh:** `GET /api/gacha/history/john_doe`
+**Contoh:** `GET /api/gacha/history/69dd01249a5bde74784c8fe6`
 
 **Response:**
 ```json
