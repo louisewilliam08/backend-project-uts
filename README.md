@@ -1,7 +1,4 @@
-# Backend Programming - Kuis 1: Sistem Gacha Undian
-
-Proyek ini mengimplementasikan sistem undian berbasis gacha menggunakan template Express.js + MongoDB.
-
+# Kuis 1: Sistem Gacha Undian
 ---
 
 ## Setup
@@ -18,7 +15,7 @@ Proyek ini mengimplementasikan sistem undian berbasis gacha menggunakan template
 
 ## Endpoints
 
-Base URL: `http://localhost:5000/api (bisa atur port sesuka hati)`
+Base URL: `http://localhost:5000/api (bisa atur port sesuka hati, asal jangan pakai port yang digunakan sistem)`
 
 ### 1. POST `/api/gacha` — Lakukan Gacha
 
@@ -70,7 +67,7 @@ Endpoint utama untuk melakukan undian (maks 5x/hari per user).
 
 ---
 
-### 2. GET `/api/gacha/history/:user_id` — Histori Gacha *(Nomor Bonus)*
+### 2. GET `/api/gacha/history/:user_id` — Histori Gacha 
 
 Menampilkan riwayat gacha user beserta hadiah yang dimenangkan.
 
@@ -119,7 +116,7 @@ Menampilkan riwayat gacha user beserta hadiah yang dimenangkan.
 
 ---
 
-### 3. GET `/api/gacha/prizes` — Daftar Hadiah & Kuota *(Nomor Bonus)*
+### 3. GET `/api/gacha/prizes` — Daftar Hadiah & Kuota
 
 Menampilkan semua hadiah beserta kuota total dan sisa kuota.
 
@@ -169,7 +166,7 @@ Menampilkan semua hadiah beserta kuota total dan sisa kuota.
 
 ---
 
-### 4. GET `/api/gacha/winners` — Daftar Pemenang (Disamarkan) *(Nomor Bonus)*
+### 4. GET `/api/gacha/winners` — Daftar Pemenang (nama disamarkan) 
 
 Menampilkan pemenang per hadiah dengan user ID yang disamarkan.
 
@@ -222,36 +219,3 @@ Menampilkan pemenang per hadiah dengan user ID yang disamarkan.
 }
 ```
 
-> Penyamaran: ~50% karakter diganti `*`, kecuali karakter pertama & terakhir. Contoh: `jane_doe` → `j*n*_d*e`.
-
----
-
-## Aturan Bisnis
-
-| Aturan | Detail |
-|--------|--------|
-| Gacha per hari | Maks **5 kali** per `user_id` per hari |
-| Kuota hadiah | Per **periode undian** (bukan per hari) |
-| Log | Semua request dicatat di koleksi `gacha_logs` MongoDB |
-
-### Daftar Hadiah
-
-| No | Hadiah | Kuota |
-|----|--------|-------|
-| 1 | Emas 10 gram | 1 |
-| 2 | Smartphone X | 5 |
-| 3 | Smartwatch Y | 10 |
-| 4 | Voucher Rp100.000 | 100 |
-| 5 | Pulsa Rp50.000 | 500 |
-
----
-
-## Cara Test di EchoAPI
-
-1. Buat **New Request**
-2. Pilih method (GET/POST) dan masukkan URL
-3. Untuk POST `/api/gacha`: tab **Body → JSON**:
-   ```json
-   { "user_id": "nama_user_anda" }
-   ```
-4. Klik **Send** dan screenshot hasilnya
